@@ -1,6 +1,7 @@
 ## Extracting transcript-aligned Acoustic Features using OpenSMILE
 
 ###  Introduction
+
 This tutorial provides a walkthrough for setting up a feature set for analysis and extracting speaker metadata from Zoom transcripts. It will cover the pre-requisites for and data structure of the feature extractor, and the `vtt` transcription format used by Zoom. Finally, it will provide a brief description of how to use timestamps in the transcripts to align the text text to the acoustic features and collate a meaningful output file that can be further used for analysis.  
 
 The Git repository contains code and short media files for running unit tests. Be sure to check out the `output` folder and match your output with the expected output. 
@@ -13,6 +14,7 @@ Before we begin, make sure that you have the following set up and running:
 3. [OpenSmile](https://github.com/audeering/opensmile) package
 
 ###  OpenSMILE
+
 OpenSmile is a open-source, hands-on package for extracting acoustic features from a sound file for a variety of use cases, such as song identification, accent recognition and speech analysis. It allows users to select a feature set and an interval (for a full list of available default features [see this](https://audeering.github.io/opensmile/get-started.html#default-feature-sets). Based on this input, it runs the extractor at the user-provided time interval, and returns a `.csv` file that contains all the feature labels as the first row. Here is what the output for IS-10 feature set and 10ms interval:
 
 [PUT A TABLE HERE]
