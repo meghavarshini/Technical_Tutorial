@@ -3,7 +3,7 @@
 ###Introduction
 This tutorial provides a walkthrough for setting up a feature set for analysis and extracting speaker metadata from Zoom transcripts. It will cover the pre-requisites for and data structure of the feature extractor, and the `vtt` transcription format used by Zoom. Finally, it will provide a brief description of how to use timestamps in the transcripts to align the text text to the acoustic features and collate a meaningful output file that can be further used for analysis.  
 
-The Git repository contains code and short media files for running unit tests. Be sure to check out the `output` folder and maych your output with the expected output. 
+The Git repository contains code and short media files for running unit tests. Be sure to check out the `output` folder and match your output with the expected output. 
 
 **Requirements**:
 Before we begin, make sure that you have the following set up and running:
@@ -25,6 +25,14 @@ OpenSMILE's relatively simple setup and lightweight system makes it a great cand
 
 Zoom's simple interface, its close-captioning service and good audio quality has made it a top choice for extracting transcripts. It also allows for multi-channel recording, so that audio overlap can be avoided. A typical Zoom transcript looks like this:
 
+```python
+
+00:00:00.500 --> 00:00:02.000
+The Web is always changing
+
+00:00:02.500 --> 00:00:04.300
+and the way we access it is changing
+```
 [add text file]
 
 
@@ -35,10 +43,22 @@ The Python `webvtt` [library](https://pypi.org/project/webvtt-py/) is a good res
 However, the `webvtt` may need to be tweaked in order to extract speaker names, and correctly align speaker information with the transcripts. There are many scripts that help users manage their Zoom transcripts that you can check out below. For this tutorial, I have included a modified script from the [TomCAT-Speech repository](https://github.com/clulab/tomcat-speech) repository that will allow us to read the `.vtt` file, identify the timestamps for every utterance, and align speaker names (if available) with the transcript, and extract each utterance along with its index number.
  
 ###Feature Extraction Pipeline
-####m4a to wav:
-First, we need to make sure that our Zom media files are in `.wav` format, so that
-####vtt to tsv
-####feature aligner
+
+Zoom audio is stored in the `m4a` format. In order to use it fr feature extraction, we first convert it to `.wav` format. Our pipeline accepts an input file destination and:
+
+* Searches for all files in the `.vtt` format
+* Searches the output folder for a `.csv` file with the same name and the prefix "processed"
+* If final output file is absent, it looks for the corresponding `.wav` file to begin the extraction.
+* If `.wav` file is absent, it finds the `.m4a` file and converts it to `.wav`. (you can modify line [ ] in file [ ] to chance this to any input format of your choice).
+* Next, it searches for a `.tsv` file with speaker names and transcripts for each transcript. If this is absent, it creates it. Now, the input for the extraction is ready.
+* It extracts acoustic features for each `.wav` file
+* Finally, it collates the features with the corresponding file and returns a CSV file with the transcript information and acoustic features and stores it in an output folder.
+
+###Useage
+
+```python
+./scripts/acoustic_pipeline.py ./sample_input
+```
 
 <!---
 
