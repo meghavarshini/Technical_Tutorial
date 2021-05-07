@@ -66,7 +66,6 @@ Download OpenSMILE by running the following script:
 
 ```python
 bash ./download_OpenSMILE.sh
-pip install .
 ```
 
 First, we will setup our virtual environment. The following lines will create a virtual environment if none present, or create one; and install all requirements listen in setup.py:
@@ -81,7 +80,13 @@ Next, we will search for all pairs of `.m4a` files and `.vtt` files, and process
 python vtt_to_tsv.py ./sample_input/
 ```
 
-Now that we have our `.tsv` files and `.wav` files, we will move on to extraction. We will run the `run_OpenSMILE.py` script using the folder with the `tsv` and `csv` files as the argument:
+Now that we have our `.tsv` files and `.wav` files, we will move on to extraction. We will run `extract_acoustic_features.py` to look for all `.wav` files in a location, run OpenSMILE on it, and store the features in a unser-defined destination, like so:
+
+```python
+python extract_acoustic_features.py ./sample_input ./output
+```
+
+Now that our transcript and media files have been processed, we will run the `run_OpenSMILE.py` script using the folder with the `tsv` and `csv` files as the arguments. This will align the transcript with its averaged features, and return a file with our data:
 
 ```python
 python run_OpenSMILE.py ./output
@@ -90,40 +95,4 @@ You will see the runtime messages from OpenSmile in the terminal. The folder wit
 
 Currently, this pipeline outputs one line of averaged features per utterance. This can be changed by changing the feature extraction function in the above code. 
 
-This process can take a lot of time. In order to custimize your run of OpenSMILE, change the `feature_set` variable on line 52 to the appropriate name.
-
-<!---
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-###  Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-###  Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/meghavarshini/Technical_Tutorial/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
--->
+This process can take a lot of time. In order to customize your run of OpenSMILE, change the `feature_set` variable on line 52 to the appropriate name.
