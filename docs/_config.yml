@@ -1,4 +1,5 @@
 title: Acoustic Feature Extraction from Zoom Data
 description: A technical tutorial for processing transcript and media files for Zoom speech data
+show_downloads: false
 google_analytics:
 theme: jekyll-theme-modernist
